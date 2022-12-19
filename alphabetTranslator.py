@@ -1,4 +1,5 @@
 import tkinter as tk
+import threading
 
 class Writer:
     vowelsList = {
@@ -140,94 +141,79 @@ def writeSentence(writer:Writer, sentence:str):
         chars = word.split(".")
         for char in chars:
             toWrite = []
+            c = ""
+            v = ""
+            vf = False
+            cl = False
+            vl = False
+
             if len(char) == 1:
-                if char in Writer.consonantsList:
-                    toWrite.append(char)
-                elif char in Writer.vowelsList:
-                    toWrite.append("")
-                    toWrite.append(char)
+                if char.lower() in Writer.consonantsList:
+                    c = char
+                elif char.lower() in Writer.vowelsList:
+                    v = char
                 else:
                     continue
 
             elif len(char) == 2:
-                if char in Writer.consonantsList:
-                    toWrite.append(char)
-                elif char in Writer.vowelsList:
-                    toWrite.append("")
-                    toWrite.append(char)
-                elif char[1] in Writer.consonantsList:
-                    toWrite.append(char[1])
-                    toWrite.append(char[0])
-                    toWrite.append(True)
+                if char.lower() in Writer.consonantsList:
+                    c = char
+                elif char.lower() in Writer.vowelsList:
+                    v = char
+                elif char[1].lower() in Writer.consonantsList:
+                    c = char[1]
+                    v = char[0]
+                    vf = True
                 else:
-                    toWrite.append(char[0])
-                    toWrite.append(char[1])
+                    c = char[0]
+                    v = char[1]
 
             elif len(char) == 4:
-                if char[2] + char[3] in Writer.consonantsList:
-                    toWrite.append(char[2] + char[3])
-                    toWrite.append(char[0] + char[1])
-                    toWrite.append(True)
+                if (char[2] + char[3]).lower() in Writer.consonantsList:
+                    c = char[2] + char[3]
+                    v = char[0] + char[1]
+                    vf = True
                 else:
-                    toWrite.append(char[0] + char[1])
-                    toWrite.append(char[2] + char[3])
+                    c = char[0] + char[1]
+                    v = char[2] + char[3]
 
             elif len(char) == 3:
-                if char[1] + char[2] in Writer.consonantsList:
-                    toWrite.append(char[1] + char[2])
-                    toWrite.append(char[0])
-                    toWrite.append(True)
-                elif char[2] in Writer.consonantsList:
-                    toWrite.append(char[2])
-                    toWrite.append(char[0] + char[1])
-                    toWrite.append(True)
-                elif char[0] + char[1] in Writer.consonantsList:
-                    toWrite.append(char[0] + char[1])
-                    toWrite.append(char[2])
+                if (char[1] + char[2]).lower() in Writer.consonantsList:
+                    c = char[1] + char[2]
+                    v = char[0]
+                    vf = True
+                elif char[2].lower() in Writer.consonantsList:
+                    c = char[2]
+                    v = char[0] + char[1]
+                    vf = True
+                elif (char[0] + char[1]).lower() in Writer.consonantsList:
+                    c = char[0] + char[1]
+                    v = char[2]
                 else:
-                    toWrite.append(char[0])
-                    toWrite.append(char[1] + char[2])
+                    c = char[0]
+                    v = char[1] + char[2]
 
 
-            writer.write(*toWrite)
+            if c.lower() != c:
+                cl = True
+            if v.lower() != v:
+                vl = True
+
+            v = v.lower()
+            c = c.lower()
+            writer.write(c, v, vf, cl, vl)
         writer.space()
 
 root = tk.Tk()
 root.geometry("1000x500")
 root.configure(bg="black")
 
-textPanel = tk.PanedWindow(root, bg="black")
-textPanel.pack(side=tk.BOTTOM)
-
-text = tk.Entry(textPanel)
-text.pack(side=tk.LEFT)
-
-confirm = tk.Button(textPanel, text="Confirmer")
-confirm.pack(side= tk.RIGHT)
-
 canva = tk.Canvas(root, width=1000, height=500, bg="white")
 canva.pack()
 
 writer = Writer(canva, 100, 100, 30)
 
-writeSentence(writer, "boo.jou.r")
-
-writer.changePosY(200)
-
-writeSentence(writer, "fi.lee.as")
-
-writeSentence(writer, "jo.ak.im")
-
-writer.changePosY(300)
-
-writeSentence(writer, "xzi.lo.foa.n")
-writeSentence(writer, "ka.o")
-writeSentence(writer, "ar.mo.ni")
-
-writer.changePosY(400)
-
-writeSentence(writer, "je su.i un li.koa.r.n")
-
+toWrite = str(input("Ecrire : "))
+writeSentence(writer, toWrite)
 
 root.mainloop()
-
