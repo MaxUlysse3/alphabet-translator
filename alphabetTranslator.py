@@ -26,7 +26,7 @@ class Writer:
             "s": [5, 6, 10, 11],
             "d": [4, 5, 6, 11],
             "f": [4, 5, 6, 10, 11, 12],
-            "gu": [6, 8, 9, 11],
+            "gg": [6, 8, 9, 11],
             "gn": [4, 5, 8, 10, 11],
             "ch": [7, 8, 11, 12],
             "j": [7, 8, 10, 11, 12],
@@ -140,7 +140,6 @@ def writeSentence(writer:Writer, sentence:str):
     for word in words:
         chars = word.split(".")
         for char in chars:
-            toWrite = []
             c = ""
             v = ""
             vf = False
@@ -211,7 +210,13 @@ root.configure(bg="black")
 canva = tk.Canvas(root, width=1000, height=500, bg="white")
 canva.pack()
 
-writer = Writer(canva, 100, 100, 30)
+writer = Writer(canva, 100, 100, 20)
+
+for i in list(writer.consonantsList):
+    print(i)
+
+for i in list(writer.vowelsList):
+    print(i)
 
 toWrite = str(input("Ecrire : "))
 writeSentence(writer, toWrite)
