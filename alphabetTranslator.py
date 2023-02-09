@@ -69,6 +69,10 @@ class Writer:
         self.posY = posY
         self.cursor = 0
 
+    def newLine(self):
+        self.posY += self.size * 3
+        self.cursor = 0
+
 
 class Char:
     
@@ -204,19 +208,28 @@ def writeSentence(writer:Writer, sentence:str):
         writer.space()
 
 root = tk.Tk()
-root.geometry("1000x500")
+root.geometry("1200x600")
 root.configure(bg="black")
 
-canva = tk.Canvas(root, width=1000, height=500, bg="white")
+canva = tk.Canvas(root, width=1200, height=600, bg="white")
 canva.pack()
 
 writer = Writer(canva, 100, 100, 20)
 
-for i in list(writer.consonantsList):
-    print(i)
+vow = ""
+for i, it in enumerate(list(writer.vowelsList)):
+    print(f"{i} -> {it}")
+    vow += f"{it} "
 
-for i in list(writer.vowelsList):
-    print(i)
+con = ""
+for i, it in enumerate(list(writer.consonantsList)):
+    print(f"{i} -> {it}")
+    con += f"{it} "
+
+writeSentence(writer, vow)
+writer.newLine()
+writeSentence(writer, con)
+writer.newLine()
 
 toWrite = str(input("Ecrire : "))
 writeSentence(writer, toWrite)
