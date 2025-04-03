@@ -4,20 +4,20 @@ import threading
 class Writer:
     vowelsList = {
             "": [],
-            "a": [1, 2],
-            "oe": [0],
-            "e": [0, 2],
-            "i": [3],
-            "o": [0, 1, 2, 3],
-            "u": [0, 2, 3],
-            "ee": [0, 1, 2],
-            "ai": [0, 1, 3],
-            "ou": [1, 3],
-            "oo": [1, 2, 3],
-            "ei": [0, 3],
-            "ii": [0, 1],
-            "oa": [2, 3],
-            "oi": [1]
+            "a": [1, 2], # a dans "casser"
+            "oe": [0], # e dans "peur"
+            "e": [0, 2], # e dans "feutre"
+            "i": [3], # i dans "image"
+            "o": [0, 1, 2, 3], # o dans "objet"
+            "u": [0, 2, 3], # u dans "mur"
+            "ee": [0, 1, 2], # é dans "épautre"
+            "ai": [0, 1, 3], # ai dans "raie"
+            "ou": [1, 3], # ou dans "cou"
+            "oo": [1, 2, 3], # on dans "ongle"
+            "ei": [0, 3], # en dans "lent"
+            "ii": [0, 1], # in dans "pain"
+            "oa": [2, 3], # o dans "licorne"
+            "oi": [1] # o dans "mauve"
             }
 
     consonantsList = {
